@@ -1,40 +1,33 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const scene = new THREE.Scene();
-
-let width = window.innerWidth;
-let height = window.innerHeight;
-
-const aspect = width / height;
-const camera = new THREE.OrthographicCamera(-aspect, aspect, 1, -1, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+camera.position.z = 5;
 
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(width, height);
-document.getElementById("scene").appendChild(renderer.domElement);
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
-const geo = new THREE.PlaneGeometry(1, 1);
-const mat = new THREE.ShaderMaterial({
-  vertexShader: /* glsl */ `
-    varying vec2 v_texcoord;
-    void main() {
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        v_texcoord = uv;
-    }`,
-  fragmentShader: /* glsl */ `
-    varying vec2 v_texcoord;
-    void main() {
-      vec2 st = v_texcoord;
-      vec3 color = vec3(st.x, st.y, 1.0);
-      gl_FragColor = vec4(color.rgb, 1.0);
-    }`,
-});
-const quad = new THREE.Mesh(geo, mat);
-scene.add(quad);
+const geometry = new THREE.SphereGeometry(1, 48, 48);
+const material = new THREE.MeshPhysicalMaterial({ color: 0xffffff });
+const mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
 
-camera.position.z = 1; // Set appropriately for orthographic
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(10, 10, 10);
+scene.add(light);
 
-const animate = () => {
+const controls = new OrbitControls(camera, renderer.domElement);
+
+function animate() {
   requestAnimationFrame(animate);
+  controls.update();
   renderer.render(scene, camera);
-};
+}
 animate();
