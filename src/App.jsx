@@ -1,11 +1,15 @@
-function App() {
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import Plane from "./components/Plane";
+
+export default function App() {
   return (
-    <>
-      <div>
-        <h1 className="text-red-500 text-2xl font-bold">CODROPS</h1>
-      </div>
-    </>
+    <div className="w-screen h-screen">
+      <Canvas>
+        <Suspense fallback={null}>
+          <Plane />
+        </Suspense>
+      </Canvas>
+    </div>
   );
 }
-
-export default App;
