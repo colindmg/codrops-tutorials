@@ -1,13 +1,13 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
-import CarouselItem from "./components/CarouselItem";
+import Carousel from "./components/Carousel";
 
 export default function App() {
   return (
-    <div className="w-screen h-screen bg-gray-100">
+    <div className="w-screen h-screen bg-gray-100 overflow-hidden">
       <Canvas>
         <Suspense fallback={null}>
-          <CarouselItem />
+          <Carousel />
         </Suspense>
       </Canvas>
     </div>
