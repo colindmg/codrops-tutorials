@@ -1,39 +1,43 @@
 /* eslint-disable react/no-unknown-property */
 import { useTexture } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import { useControls } from "leva";
+import gsap from "gsap";
+import PropTypes from "prop-types";
 import { useEffect, useMemo, useRef } from "react";
 
-const Plane = () => {
+const Plane = ({ texture, width, height, active, ...props }) => {
   const $mesh = useRef();
   const { viewport } = useThree();
-  const tex = useTexture(
-    "https://raw.githubusercontent.com/supahfunk/webgl-carousel/main/public/img/1.jpg"
-  );
-
-  const { width, height } = useControls({
-    width: {
-      value: 2,
-      min: 0.5,
-      max: viewport.width,
-    },
-    height: {
-      value: 3,
-      min: 0.5,
-      max: viewport.height,
-    },
-  });
+  const tex = useTexture(texture);
 
   useEffect(() => {
     if ($mesh.current.material) {
-      $mesh.current.material.uniforms.uRes.value.x = width;
-      $mesh.current.material.uniforms.uRes.value.y = height;
+      //  Setting the 'uZoomScale' uniform in the 'Plane' component to resize the texture proportionally to the dimensions of the viewport.
+      $mesh.current.material.uniforms.uZoomScale.value.x =
+        viewport.width / width;
+      $mesh.current.material.uniforms.uZoomScale.value.y =
+        viewport.height / height;
+
+      gsap.to($mesh.current.material.uniforms.uProgress, {
+        value: active ? 1 : 0,
+        duration: 2.5,
+        ease: "power3.out,",
+      });
+
+      gsap.to($mesh.current.material.uniforms.uRes.value, {
+        x: active ? viewport.width : width,
+        y: active ? viewport.height : height,
+        duration: 2.5,
+        ease: "power3.out,",
+      });
     }
-  }, [viewport, width, height]);
+  }, [viewport, active]);
 
   const shaderArgs = useMemo(
     () => ({
       uniforms: {
+        uProgress: { value: 0 },
+        uZoomScale: { value: { x: 1, y: 1 } },
         uTex: { value: tex },
         uRes: { value: { x: 1, y: 1 } },
         uImageRes: {
@@ -42,16 +46,25 @@ const Plane = () => {
       },
       vertexShader: /* glsl */ `
         varying vec2 vUv;
+        uniform float uProgress;
+        uniform vec2 uZoomScale;
 
         void main() {
           vUv = uv;
           vec3 pos = position;
+          float angle = uProgress * 3.14159265 / 2.;
+          float wave = cos(angle);
+          float c = sin(length(uv - .5) * 15. + uProgress * 12.) * .5 + .5;
+          pos.x *= mix(1., uZoomScale.x + wave * c, uProgress);
+          pos.y *= mix(1., uZoomScale.y + wave * c, uProgress);
+
           gl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );
         }
       `,
       fragmentShader: /* glsl */ `
       uniform sampler2D uTex;
       uniform vec2 uRes;
+      uniform vec2 uZoomScale;
       uniform vec2 uImageRes;
 
       /*------------------------------
@@ -81,11 +94,18 @@ const Plane = () => {
   );
 
   return (
-    <mesh ref={$mesh}>
+    <mesh ref={$mesh} {...props}>
       <planeGeometry args={[width, height, 30, 30]} />
       <shaderMaterial args={[shaderArgs]} />
     </mesh>
   );
+};
+
+Plane.propTypes = {
+  texture: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  active: PropTypes.bool.isRequired,
 };
 
 export default Plane;
