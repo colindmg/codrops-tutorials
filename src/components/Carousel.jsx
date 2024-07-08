@@ -4,7 +4,9 @@ import gsap from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePrevious } from "react-use";
 import images from "../data/images";
+import { getPiramidalIndex, lerp } from "../utils";
 import CarouselItem from "./CarouselItem";
+import PostProcessing from "./PostProcessing";
 
 /*------------------------------
 Plane Settings
@@ -28,6 +30,7 @@ Carousel
 ------------------------------*/
 const Carousel = () => {
   const [$root, setRoot] = useState();
+  const $post = useRef();
 
   const [activePlane, setActivePlane] = useState(null);
   const prevActivePlane = usePrevious(activePlane);
@@ -41,6 +44,8 @@ const Carousel = () => {
   const isDown = useRef(false);
   const speedWheel = 0.02;
   const speedDrag = -0.3;
+  const oldProgress = useRef(0);
+  const speed = useRef(0);
   const $items = useMemo(() => {
     if ($root) return $root.children;
   }, [$root]);
@@ -49,9 +54,10 @@ const Carousel = () => {
   Diaplay Items
   --------------------*/
   const displayItems = (item, index, active) => {
+    const piramidalIndex = getPiramidalIndex($items, active)[index];
     gsap.to(item.position, {
       x: (index - active) * (planeSettings.width + planeSettings.gap),
-      y: 0,
+      y: $items.length * -0.1 + piramidalIndex * 0.1,
     });
   };
 
@@ -63,6 +69,17 @@ const Carousel = () => {
 
     const active = Math.floor((progress.current / 100) * ($items.length - 1));
     $items.forEach((item, index) => displayItems(item, index, active));
+    speed.current = lerp(
+      speed.current,
+      Math.abs(oldProgress.current - progress.current),
+      0.1
+    );
+
+    oldProgress.current = lerp(oldProgress.current, progress.current, 0.1);
+
+    if ($post.current) {
+      $post.current.thickness = speed.current;
+    }
   });
 
   /*--------------------
@@ -110,7 +127,7 @@ const Carousel = () => {
     if (activePlane !== null && prevActivePlane === null) {
       progress.current = (activePlane / ($items.length - 1)) * 100; // Calculate the progress.current based on activePlane
     }
-  }, [activePlane, $items, prevActivePlane]);
+  }, [activePlane, $items]);
 
   /*--------------------
   Render Plane Events
@@ -157,6 +174,7 @@ const Carousel = () => {
     <group>
       {renderPlaneEvents()}
       {renderSlider()}
+      <PostProcessing ref={$post} />
     </group>
   );
 };
