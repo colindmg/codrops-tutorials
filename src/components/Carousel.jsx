@@ -4,9 +4,9 @@ import gsap from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePrevious } from "react-use";
 import images from "../data/images";
-import { getPiramidalIndex, lerp } from "../utils";
+import { lerp } from "../utils";
 import CarouselItem from "./CarouselItem";
-import PostProcessing from "./PostProcessing";
+// import PostProcessing from "./PostProcessing";
 
 /*------------------------------
 Plane Settings
@@ -54,10 +54,11 @@ const Carousel = () => {
   Diaplay Items
   --------------------*/
   const displayItems = (item, index, active) => {
-    const piramidalIndex = getPiramidalIndex($items, active)[index];
+    // const piramidalIndex = getPiramidalIndex($items, active)[index];
     gsap.to(item.position, {
       x: (index - active) * (planeSettings.width + planeSettings.gap),
-      y: $items.length * -0.1 + piramidalIndex * 0.1,
+      // y: $items.length * -0.1 + piramidalIndex * 0.1, // Piramidal effect
+      y: 0,
     });
   };
 
@@ -127,7 +128,7 @@ const Carousel = () => {
     if (activePlane !== null && prevActivePlane === null) {
       progress.current = (activePlane / ($items.length - 1)) * 100; // Calculate the progress.current based on activePlane
     }
-  }, [activePlane, $items]);
+  }, [activePlane, $items, prevActivePlane]);
 
   /*--------------------
   Render Plane Events
@@ -174,7 +175,7 @@ const Carousel = () => {
     <group>
       {renderPlaneEvents()}
       {renderSlider()}
-      <PostProcessing ref={$post} />
+      {/* <PostProcessing ref={$post} /> */}
     </group>
   );
 };
