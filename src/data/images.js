@@ -66,6 +66,22 @@ const images = [
     // name: "Davril Supply",
     image: "/img/davril.webp",
   },
+  {
+    name: "Forever Vacation",
+    image: "/img/forevervacation.webp",
+  },
+  {
+    name: "Genèse",
+    image: "/img/genese.webp",
+  },
+  {
+    name: "Supram",
+    image: "/img/supram.webp",
+  },
+  {
+    name: "Orem",
+    image: "/img/orem.webp",
+  },
 ];
 
 export default images;
