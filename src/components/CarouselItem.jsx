@@ -76,7 +76,7 @@ const CarouselItem = ({
         width={width}
         height={height}
         texture={item.image}
-        active={isActive}
+        active={isActive ? true : false}
       />
 
       {isCloseActive ? (
