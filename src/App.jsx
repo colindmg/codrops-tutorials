@@ -8,7 +8,14 @@ export default function App() {
   const [appActivePlane, setAppActivePlane] = useState(null);
 
   return (
-    <div className="relative w-screen h-screen bg-neutral-900 overflow-hidden">
+    <div
+      className="relative w-screen h-screen bg-neutral-900 overflow-hidden"
+      style={{
+        backgroundImage: "url('/img/backgroundgrid.svg')",
+        backgroundSize: "cover",
+        backgroundImagePosition: "center",
+      }}
+    >
       <Canvas>
         <Suspense fallback={null}>
           <Carousel
@@ -18,9 +25,10 @@ export default function App() {
         </Suspense>
       </Canvas>
 
+      {/* HTML */}
       <div
-        className={`absolute top-0 left-0 w-full h-full backdrop-blur-3xl pointer-events-none transition-all duration-500 flex items-center justify-center ${
-          appActivePlane !== null ? "delay-[1.3s]" : ""
+        className={`absolute top-0 left-0 w-full h-full backdrop-blur-3xl pointer-events-none transition-all duration-1000 flex items-center justify-center ${
+          appActivePlane !== null ? "delay-[1s]" : ""
         } `}
         style={{
           backdropFilter: appActivePlane !== null ? "blur(50px)" : "blur(0px)",
