@@ -55,7 +55,7 @@ const images = [
     image: "/img/tern.webp",
   },
   {
-    name: "At",
+    name: "()at",
     image: "/img/at.webp",
   },
   {
