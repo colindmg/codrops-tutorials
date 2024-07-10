@@ -72,7 +72,6 @@ const CarouselItem = ({
       }}
       onPointerEnter={() => {
         setHover(true);
-        // console.log(item);
         setHoveredItem(item);
       }}
       onPointerLeave={() => {

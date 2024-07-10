@@ -29,13 +29,21 @@ gsap.defaults({
 /*------------------------------
 Carousel
 ------------------------------*/
-const Carousel = ({ setHoveredItem }) => {
+const Carousel = ({ setHoveredItem, setAppActivePlane }) => {
   const [$root, setRoot] = useState();
   const $post = useRef();
 
   const [activePlane, setActivePlane] = useState(null);
   const prevActivePlane = usePrevious(activePlane);
   const { viewport } = useThree();
+
+  useEffect(() => {
+    if (activePlane !== null) {
+      setAppActivePlane(activePlane);
+    } else {
+      setAppActivePlane(null);
+    }
+  }, [activePlane, setAppActivePlane]);
 
   /*--------------------
   Vars
@@ -184,6 +192,7 @@ const Carousel = ({ setHoveredItem }) => {
 
 Carousel.propTypes = {
   setHoveredItem: PropTypes.func,
+  setAppActivePlane: PropTypes.func,
 };
 
 export default Carousel;
