@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { useFrame, useThree } from "@react-three/fiber";
 import gsap from "gsap";
+import PropTypes from "prop-types";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePrevious } from "react-use";
 import images from "../data/images";
@@ -28,7 +29,7 @@ gsap.defaults({
 /*------------------------------
 Carousel
 ------------------------------*/
-const Carousel = () => {
+const Carousel = ({ setHoveredItem }) => {
   const [$root, setRoot] = useState();
   const $post = useRef();
 
@@ -165,6 +166,7 @@ const Carousel = () => {
             key={item.image}
             item={item}
             index={i}
+            setHoveredItem={setHoveredItem}
           />
         ))}
       </group>
@@ -178,6 +180,10 @@ const Carousel = () => {
       {/* <PostProcessing ref={$post} /> */}
     </group>
   );
+};
+
+Carousel.propTypes = {
+  setHoveredItem: PropTypes.func,
 };
 
 export default Carousel;

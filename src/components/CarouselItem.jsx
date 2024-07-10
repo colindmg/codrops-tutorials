@@ -12,6 +12,7 @@ const CarouselItem = ({
   setActivePlane,
   activePlane,
   item,
+  setHoveredItem,
 }) => {
   const $root = useRef();
   const [hover, setHover] = useState(false);
@@ -69,8 +70,15 @@ const CarouselItem = ({
       onClick={() => {
         setActivePlane(index);
       }}
-      onPointerEnter={() => setHover(true)}
-      onPointerLeave={() => setHover(false)}
+      onPointerEnter={() => {
+        setHover(true);
+        // console.log(item);
+        setHoveredItem(item);
+      }}
+      onPointerLeave={() => {
+        setHover(false);
+        setHoveredItem(null);
+      }}
     >
       <Plane
         width={width}
@@ -96,6 +104,7 @@ CarouselItem.propTypes = {
   setActivePlane: PropTypes.func,
   activePlane: PropTypes.number,
   item: PropTypes.object,
+  setHoveredItem: PropTypes.func,
 };
 
 export default CarouselItem;

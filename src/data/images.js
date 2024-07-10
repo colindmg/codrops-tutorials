@@ -51,19 +51,19 @@
 
 const images = [
   {
-    // name: "Tern",
+    name: "Tern",
     image: "/img/tern.webp",
   },
   {
-    // name: "At",
+    name: "At",
     image: "/img/at.webp",
   },
   {
-    // name: "Ülala",
+    name: "Ülala",
     image: "/img/ulala.webp",
   },
   {
-    // name: "Davril Supply",
+    name: "Davril Supply",
     image: "/img/davril.webp",
   },
   {
