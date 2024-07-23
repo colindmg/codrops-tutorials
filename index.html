@@ -1,58 +1,86 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>On-Scroll Image Distortion and Grain Effect | Codrops</title>
-		<meta name="author" content="Jan Jan Kohlbach for Codrops" />
-		<link rel="shortcut icon" href="favicon.ico">
-		<link rel="stylesheet" type="text/css" href="css/base.css" />
-		<link rel="stylesheet" type="text/css" href="css/demo.css" />
-		<script>document.documentElement.className="js";</script>
-		<!--script src="//tympanus.net/codrops/adpacks/analytics.js"></script-->
-		<script type="module" src="./js/script" defer></script>
-	</head>
-	<body class="loading">
-		<main>
-			<header class="frame">
-				<h1 class="frame__title">On-Scroll Image Distortion and Grain Effect</h1>
-				<a class="frame__back" href="https://tympanus.net/codrops/?p=78948">Read the tutorial</a>
-				<a class="frame__archive" href="https://tympanus.net/codrops/demos/">All demos</a>
-				<a class="frame__github" href="https://github.com/jankohlbach/codrops-shader-on-scroll">GitHub</a>
-				<nav class="frame__tags">
-					<a href="https://tympanus.net/codrops/demos/?tag=scroll">#scroll</a>
-					<a href="https://tympanus.net/codrops/demos/?tag=three-js">#three.js</a>
-					<a href="https://tympanus.net/codrops/demos/?tag=webgl">#webgl</a>
-				</nav>
-			</header>
-			<div class="content">
-				<canvas></canvas>
-				<div class="container">
-					<div class="grid">
-						<figure class="img-wrap img-wrap-1">
-							<img class="img" src="./assets/1.webp" alt="image of ceramic piece" data-webgl-media>
-							<figcaption><strong>X05</strong><span>Kenji Sato</span></figcaption>
-						</figure>
-						<figure class="img-wrap img-wrap-2">
-							<img class="img" src="./assets/2.webp" alt="image of ceramic piece" data-webgl-media>
-							<figcaption><strong>M33</strong><span>Yusuke Tanaka</span></figcaption>
-						</figure>
-						<figure class="img-wrap img-wrap-3">
-							<img class="img" src="./assets/3.webp" alt="image of ceramic piece" data-webgl-media>
-							<figcaption><strong>Y78</strong><span>Mei Yamamoto</span></figcaption>
-						</figure>
-						<figure class="img-wrap img-wrap-4">
-							<img class="img" src="./assets/4.webp" alt="image of ceramic piece" data-webgl-media>
-							<figcaption><strong>K08</strong><span>Natsumi Ito</span></figcaption>
-						</figure>
-						<figure class="img-wrap img-wrap-5">
-							<img class="img" src="./assets/5.webp" alt="image of ceramic piece" data-webgl-media>
-							<figcaption><strong>F03</strong><span>Miku Inoue</span></figcaption>
-						</figure>
-					</div>
-				</div>
-			</div>
-		</main>
-		<!--script src="https://tympanus.net/codrops/adpacks/cda_sponsor.js"></script-->
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      On-Scroll Image Distortion and Grain Effect following @codrops tuto
+    </title>
+    <meta name="author" content="Jan Jan Kohlbach for Codrops" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <script>
+      document.documentElement.className = "js";
+    </script>
+    <!--script src="//tympanus.net/codrops/adpacks/analytics.js"></script-->
+    <script type="module" src="./js/script" defer></script>
+  </head>
+  <body class="loading">
+    <!-- <header style="height: 300px; background-color: blueviolet"></header> -->
+    <main>
+      <div class="content">
+        <canvas></canvas>
+        <div class="container">
+          <div class="grid">
+            <figure class="img-wrap img-wrap-1">
+              <img
+                class="img"
+                src="./assets/1.webp"
+                alt="image of ceramic piece"
+                data-webgl-media
+              />
+              <figcaption>
+                <strong>Painting</strong><span>by Senssy Lee</span>
+              </figcaption>
+            </figure>
+            <figure class="img-wrap img-wrap-2">
+              <img
+                class="img"
+                src="./assets/2.webp"
+                alt="image of ceramic piece"
+                data-webgl-media
+              />
+              <figcaption>
+                <strong>3D Art</strong><span>by Tomás Correia</span>
+              </figcaption>
+            </figure>
+            <figure class="img-wrap img-wrap-3">
+              <img
+                class="img"
+                src="./assets/3.webp"
+                alt="image of ceramic piece"
+                data-webgl-media
+              />
+              <figcaption>
+                <strong>Album cover</strong><span>by Jey™</span>
+              </figcaption>
+            </figure>
+            <figure class="img-wrap img-wrap-4">
+              <img
+                class="img"
+                src="./assets/4.webp"
+                alt="image of ceramic piece"
+                data-webgl-media
+              />
+              <figcaption>
+                <strong>Knitted polo shirt</strong><span>by Studio Miasin</span>
+              </figcaption>
+            </figure>
+            <figure class="img-wrap img-wrap-5">
+              <img
+                class="img"
+                src="./assets/5.webp"
+                alt="image of ceramic piece"
+                data-webgl-media
+              />
+              <figcaption>
+                <strong>F03</strong><span>Miku Inoue</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
