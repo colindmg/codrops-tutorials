@@ -16,18 +16,20 @@ export default function App() {
         backgroundImagePosition: "center",
       }}
     >
+      {/* 3D SCENE */}
       <Canvas>
         <Suspense fallback={null}>
           <Carousel
             setHoveredItem={setHoveredItem}
             setAppActivePlane={setAppActivePlane}
           />
+          ✷
         </Suspense>
       </Canvas>
 
       {/* HTML */}
       <h1
-        className="text-4xl font-mono italic tracking-wide font-bold absolute top-28 left-1/2 -translate-x-1/2 text-gray-100 transition-opacity duration-300"
+        className="text-4xl font-mono tracking-wide font-bold absolute top-28 left-1/2 -translate-x-1/2 text-gray-100 transition-opacity duration-300"
         style={{ opacity: appActivePlane !== null ? 0 : 100 }}
       >
         Brands.
