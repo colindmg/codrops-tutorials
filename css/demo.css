@@ -96,3 +96,10 @@ canvas {
   grid-column: 4 / span 3;
   grid-row: 5;
 }
+
+/* CSS AJOUTÉ */
+
+@font-face {
+  font-family: "Rosamila";
+  src: url("../assets/fonts/Rosamila-Regular.ttf");
+}
