@@ -7,34 +7,31 @@ import {
   If,
   Loop,
   MeshBasicNodeMaterial,
+  screenSize,
   uv,
   vec3,
-  viewportResolution,
 } from "three/tsl";
 
 const raymarchMaterial = new MeshBasicNodeMaterial();
 
-const sdf = Fn(([pos]) => {
-  // This is our main "scene" where objects will go, but for now return 0
-  return float(0);
+const sdSphere = Fn(([p, r]) => {
+  return p.length().sub(r);
 });
 
-const lighting = Fn(([ro, r]) => {
-  // Ambient light
-  const ambient = vec3(0.2);
+const sdf = Fn(([pos]) => {
+  // Update the sdf function to add our sphere here
+  const sphere = sdSphere(pos, 0.3);
 
-  const finalColor = ambient;
-
-  return finalColor;
+  return sphere;
 });
 
 const raymarch = Fn(() => {
   // Use frag coordinates to get an aspect-fixed UV
   const _uv = uv()
-    .mul(viewportResolution.xy)
+    .mul(screenSize.xy)
     .mul(2)
-    .sub(viewportResolution.xy)
-    .div(viewportResolution.y);
+    .sub(screenSize.xy)
+    .div(screenSize.y);
 
   // Initialize the ray and its direction
   const rayOrigin = vec3(0, 0, -3);
@@ -64,7 +61,7 @@ const raymarch = Fn(() => {
     });
   });
 
-  return lighting(rayOrigin, ray);
+  return vec3(t.mul(0.2));
 })();
 
 raymarchMaterial.colorNode = raymarch;
