@@ -1,9 +1,12 @@
+import Raymarch from "./components/Raymarch";
+import WebGPUCanvas from "./components/WebGPUCanvas";
+
 function App() {
   return (
     <>
-      <h1 className="text-center w-full mt-10 text-2xl font-bold">
-        ReactJS Boilerplate
-      </h1>
+      <WebGPUCanvas style={{ width: "100vw", height: "100vh" }}>
+        <Raymarch />
+      </WebGPUCanvas>
     </>
   );
 }
