@@ -28,6 +28,10 @@ const sdSphere = Fn(([p, r]) => {
   return p.length().sub(r);
 });
 
+const sdBox = Fn(([p, b]) => {
+  return p.abs().sub(b).max(0).length();
+});
+
 const timer = timerLocal(1);
 
 const smin = Fn(([a, b, k]) => {
@@ -38,9 +42,11 @@ const smin = Fn(([a, b, k]) => {
 const sdf = Fn(([pos]) => {
   const translatedPos = pos.add(vec3(sin(timer), 0, 0));
   const sphere = sdSphere(translatedPos, 0.5);
+  const box = sdBox(pos, vec3(0.3));
   const secondSphere = sdSphere(pos, 0.3);
 
-  return smin(secondSphere, sphere, 0.3);
+  return smin(box, sphere, 0.3);
+  // return smin(secondSphere, sphere, 0.3);
 });
 
 const calcNormal = Fn(([p]) => {
