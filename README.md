@@ -1,46 +1,8 @@
-# On-Scroll Image Distortion and Grain Effect
+# React + Vite
 
-Demo for the tutorial on how to create on-scroll distortion and grain effect with shaders in Three.js.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-![Image](https://tympanus.net/codrops/wp-content/uploads/2024/07/grainscroll.png)
+Currently, two official plugins are available:
 
-[Article on Codrops](https://tympanus.net/codrops/?p=78948)
-
-[Demo](http://tympanus.net/Tutorials/ShaderOnScroll/)
-
-## Installation
-
-Install dependencies:
-```
-yarn install
-```
-
-Run local environment:
-```
-yarn dev
-```
-
-Create build:
-```
-yarn build
-```
-
-## Credits
-
-- Images generated with [Midjourney](https://midjourney.com)
-
-## Misc
-
-Follow Jan Kohlbach: [Twitter](https://x.com/jankohlbach), [Instagram](https://instagram.com/jankohlbach.work), [GitHub](https://github.com/jankohlbach)
-
-Follow Codrops: [X](http://www.X.com/codrops), [Facebook](http://www.facebook.com/codrops), [GitHub](https://github.com/codrops), [Instagram](https://www.instagram.com/codropsss/)
-
-## License
-[MIT](LICENSE)
-
-Made with 💙 by [Codrops](http://www.codrops.com) and [Jan Kohlbach](https://x.com/jankohlbach)
-
-
-
-
-
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
