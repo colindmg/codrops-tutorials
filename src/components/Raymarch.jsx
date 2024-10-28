@@ -3,6 +3,7 @@ import { useThree } from "@react-three/fiber";
 import {
   abs,
   Break,
+  cos,
   dot,
   float,
   Fn,
@@ -40,13 +41,39 @@ const smin = Fn(([a, b, k]) => {
 });
 
 const sdf = Fn(([pos]) => {
-  const translatedPos = pos.add(vec3(sin(timer), 0, 0));
+  const translatedPos = pos.add(
+    vec3(
+      sin(timer.mul(2)).mul(0.9), // x : mouvement en 8
+      sin(timer).mul(0.8), // y : simple oscillation
+      sin(timer).mul(cos(timer)) // z : complète le mouvement en 8
+    )
+  );
+
+  // On peut utiliser différentes vitesses de rotation pour chaque axe
+  const angleX = timer;
+  const angleY = timer.mul(0.7); // rotation un peu plus lente sur Y
+  const angleZ = timer.mul(1.3); // rotation un peu plus rapide sur Z
+
+  // Rotation sur Z d'abord
+  const x1 = pos.x.mul(cos(angleZ)).sub(pos.y.mul(sin(angleZ)));
+  const y1 = pos.x.mul(sin(angleZ)).add(pos.y.mul(cos(angleZ)));
+  const z1 = pos.z;
+
+  // Puis rotation sur Y
+  const x2 = x1.mul(cos(angleY)).add(z1.mul(sin(angleY)));
+  const y2 = y1;
+  const z2 = x1.mul(sin(angleY).negate()).add(z1.mul(cos(angleY)));
+
+  // Enfin rotation sur X
+  const x3 = x2;
+  const y3 = y2.mul(cos(angleX)).sub(z2.mul(sin(angleX)));
+  const z3 = y2.mul(sin(angleX)).add(z2.mul(cos(angleX)));
+
+  const rotatedPos = vec3(x3, y3, z3);
   const sphere = sdSphere(translatedPos, 0.5);
-  const box = sdBox(pos, vec3(0.3));
-  const secondSphere = sdSphere(pos, 0.3);
+  const box = sdBox(rotatedPos, vec3(0.4));
 
   return smin(box, sphere, 0.3);
-  // return smin(secondSphere, sphere, 0.3);
 });
 
 const calcNormal = Fn(([p]) => {
