@@ -7,22 +7,28 @@ import {
   If,
   Loop,
   MeshBasicNodeMaterial,
+  min,
   screenSize,
+  sin,
+  timerLocal,
   uv,
   vec3,
 } from "three/tsl";
 
 const raymarchMaterial = new MeshBasicNodeMaterial();
 
+const timer = timerLocal(1);
+
 const sdSphere = Fn(([p, r]) => {
   return p.length().sub(r);
 });
 
 const sdf = Fn(([pos]) => {
-  // Update the sdf function to add our sphere here
-  const sphere = sdSphere(pos, 0.3);
+  const translatedPos = pos.add(vec3(sin(timer), 0, 0));
+  const sphere = sdSphere(translatedPos, 0.5);
+  const secondSphere = sdSphere(pos, 0.3);
 
-  return sphere;
+  return min(sphere, secondSphere);
 });
 
 const raymarch = Fn(() => {
