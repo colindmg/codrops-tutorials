@@ -1,11 +1,13 @@
 import { useThree } from "@react-three/fiber";
 
 import {
+  abs,
   Break,
   float,
   Fn,
   If,
   Loop,
+  max,
   MeshBasicNodeMaterial,
   min,
   screenSize,
@@ -23,12 +25,17 @@ const sdSphere = Fn(([p, r]) => {
   return p.length().sub(r);
 });
 
+const smin = Fn(([a, b, k]) => {
+  const h = max(k.sub(abs(a.sub(b))), 0).div(k);
+  return min(a, b).sub(h.mul(h).mul(k).mul(0.25));
+});
+
 const sdf = Fn(([pos]) => {
   const translatedPos = pos.add(vec3(sin(timer), 0, 0));
   const sphere = sdSphere(translatedPos, 0.5);
   const secondSphere = sdSphere(pos, 0.3);
 
-  return min(sphere, secondSphere);
+  return smin(secondSphere, sphere, 0.3);
 });
 
 const raymarch = Fn(() => {
