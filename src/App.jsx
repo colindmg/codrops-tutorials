@@ -1,12 +1,12 @@
-import Raymarch from "./components/Raymarch";
-import WebGPUCanvas from "./components/WebGPUCanvas";
+import { Canvas } from "@react-three/fiber";
+import Scene from "./components/Scene";
 
 function App() {
   return (
     <>
-      <WebGPUCanvas style={{ width: "100vw", height: "100vh" }}>
-        <Raymarch />
-      </WebGPUCanvas>
+      <Canvas style={{ width: "100vw", height: "100vh" }}>
+        <Scene />
+      </Canvas>
     </>
   );
 }
