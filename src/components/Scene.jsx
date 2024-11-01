@@ -25,6 +25,7 @@ const Scene = () => {
               ),
             },
             uGridSize: { value: 50 },
+            uRadius: { value: 0.3 },
           }}
         />
       </mesh>
