@@ -1,6 +1,8 @@
 uniform vec2 uResolution;
 uniform float uGridSize;
 uniform float uRadius;
+uniform sampler2D uMouseTrail;
+
 
 vec2 coverUv(vec2 uv) {
   vec2 s = uResolution.xy / max(uResolution.x, uResolution.y);
@@ -14,6 +16,7 @@ float sdfCircle(vec2 p, float r) {
 }
 
 void main() {
+  float aspect = uResolution.x / uResolution.y;
   vec2 screenUv = gl_FragCoord.xy / uResolution;
   vec2 uv = coverUv(screenUv);
 
@@ -23,5 +26,8 @@ void main() {
   // Calculate distance from the center of each cell
   float baseDot = sdfCircle(gridUv, uRadius);
 
-  gl_FragColor = vec4(vec3(baseDot), 1.0);
+  // Sample mouse trail
+  float trail = texture2D(uMouseTrail, uv).r;
+
+  gl_FragColor = vec4(vec3(trail), 1.0);
 }
