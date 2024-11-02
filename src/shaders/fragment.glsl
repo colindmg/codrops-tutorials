@@ -22,12 +22,13 @@ void main() {
 
   // Create a grid
   vec2 gridUv = fract(uv * uGridSize);
+  vec2 gridUvCenter = (floor(uv * uGridSize) + 0.5) / uGridSize;
 
   // Calculate distance from the center of each cell
   float baseDot = sdfCircle(gridUv, uRadius);
 
   // Sample mouse trail
-  float trail = texture2D(uMouseTrail, uv).r;
+  float trail = texture2D(uMouseTrail, gridUvCenter).r;
 
   gl_FragColor = vec4(vec3(trail), 1.0);
 }
