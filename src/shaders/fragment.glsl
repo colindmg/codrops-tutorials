@@ -2,7 +2,7 @@ uniform vec2 uResolution;
 uniform float uGridSize;
 uniform float uRadius;
 uniform sampler2D uMouseTrail;
-
+uniform float uTime;
 
 vec2 coverUv(vec2 uv) {
   vec2 s = uResolution.xy / max(uResolution.x, uResolution.y);
@@ -30,5 +30,15 @@ void main() {
   // Sample mouse trail
   float trail = texture2D(uMouseTrail, gridUvCenter).r;
 
-  gl_FragColor = vec4(vec3(trail), 1.0);
+  // Mask gradient
+  float circleMaskCenter = length(uv - vec2(0.70, 1.0));
+  float circleMask = smoothstep(0.4, 1.0, circleMaskCenter);
+  float circleAnimatedMask = sin(uTime * 2.0 + circleMaskCenter * 10.0);
+
+  float screenMask = smoothstep(0.0, 1.0, 1.0 - uv.y);
+
+  // Blend
+  float combinedMask = screenMask * circleMask;
+
+  gl_FragColor = vec4(vec3(combinedMask), 1.0);
 }
