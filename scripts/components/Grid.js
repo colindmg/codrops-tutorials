@@ -8,6 +8,7 @@ export class Grid extends ExtendedObject3D {
   constructor() {
     super();
 
+    Card.SetScale();
     this.#_createCards();
   }
 
@@ -23,6 +24,8 @@ export class Grid extends ExtendedObject3D {
   resize() {
     Grid.COLUMNS = Math.floor(window.innerWidth / 100) | 1;
     Grid.ROWS = Math.floor(window.innerHeight / 100) | 1;
+
+    Card.SetScale();
   }
 
   update(dt) {}

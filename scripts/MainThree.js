@@ -111,7 +111,7 @@ export class MainThree {
   }
 
   static get Aspect() {
-    return this
+    return this;
   }
   // #endregion
 }
